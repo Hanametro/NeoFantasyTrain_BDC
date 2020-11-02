@@ -1,1 +1,3 @@
-# NeoFantasyTrain_DCC
+# NEO FANTASY TRAIN DCC
+G比例机车模型控制项目
+2020.11 开题

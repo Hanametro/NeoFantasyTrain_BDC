@@ -17,7 +17,7 @@ void sendcmd()
   delay(1000); // wait for printing 
 
   
-  Serial.println("AT+NAME=BR182-01");
+  Serial.println("AT+NAME=BR218-01");
   while(Serial.available())
   {
     char ch;

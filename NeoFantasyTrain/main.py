@@ -42,8 +42,10 @@ class mainApplication():
         self.slide2 = tk.Scale(self.frame2, font=defaultFont,from_=1, to=-1, orient=tk.VERTICAL, width=50,length=180, showvalue=0,tickinterval=1, resolution=1, command=self.controlDirection,state=tk.DISABLED)
         self.label4=tk.Label(self.frame2,text='机车\n方向', font=defaultFont)
         self.label5=tk.Label(self.frame2,text='手柄\n控制', font=defaultFont)
+        self.button3=tk.Button(self.frame2,text='紧急\n制动',width=5, font=defaultFont,command=self.EBreak,state=tk.DISABLED)
         self.label4.place(x=200,y=320,anchor='center')
         self.label5.place(x=110,y=320,anchor='center')
+        self.button3.place(x=120,y=150,anchor='center')
         self.slide1.place(x=50,y=320,anchor='center')
         self.slide2.place(x=250,y=320,anchor='center')
         self.frame2.place(x=970,y=20,anchor='nw')
@@ -74,7 +76,7 @@ class mainApplication():
         self.labelB=tk.Label(self.frame4,text='连接端口', font=smallFont)
         self.labelC=tk.Label(self.frame4,text='命令视图', font=smallFont)
         self.richtext1=tk.Text(self.frame4,height=6,width=40,font=smallFont)
-        self.COMList = [comport.device for comport in ports.comports()]
+        self.COMList = ['COM'+str(i) for i in range(0,16)]
 
         self.Combobox1=ttk.Combobox(self.frame4,font=defaultFont,values=self.COMList)
         self.button1=tk.Button(self.frame4,text='连接',width=10, font=smallFont,command=lambda:self.bluetoothCon(str(self.Combobox1.get())))
@@ -95,12 +97,13 @@ class mainApplication():
             self.richtext1.insert(tk.INSERT,'正在连接蓝牙串口:'+COMname+"...等待下位机操作\n")
             self.button1.config(text='断开',command=self.breakBluetooth)
             self.ser = serial.Serial(COMname, 9600,timeout=1)
-            testmsg='T01000'
+            testmsg='T010C0'
             self.ser.write(testmsg.encode())
             self.richtext1.insert(tk.END,"蓝牙已连接！"+"\n")
 
             self.slide2.config(state=tk.NORMAL)
             self.button2.config(state=tk.NORMAL)
+            self.button3.config(state=tk.NORMAL)
             self.slide3.config(state=tk.NORMAL)
             self.slide4.config(state=tk.NORMAL)
             self.slide5.config(state=tk.NORMAL)
@@ -113,13 +116,12 @@ class mainApplication():
                         self. richtext1.insert(tk.END,time.strftime("%H:%M:%S", time.localtime())+" RXD:"+data+"\n")
                         if data=='R01':
                             confirmsg='TESTOK'
-                            self.ser.write(confirmsg.encode())
                             self.richtext1.insert(tk.END,"TXD:"+confirmsg+"\n")
                         else:
                             self.RXDhandle(data)
                 except:
                     break
-                time.sleep(0.02)
+                time.sleep(0.4)
         t = threading.Thread(target=lambda:conn(self,COMname))
         t.start()
     
@@ -132,6 +134,7 @@ class mainApplication():
         self.button1.config(text='连接',command=lambda:self.bluetoothCon(str(self.Combobox1.get())))
         self.slide2.config(state=tk.DISABLED)
         self.button2.config(state=tk.DISABLED)
+        self.button3.config(state=tk.DISABLED)
         self.slide3.config(state=tk.DISABLED)
         self.slide4.config(state=tk.DISABLED)
         self.slide5.config(state=tk.DISABLED)
@@ -162,7 +165,11 @@ class mainApplication():
         self.cmd='PW'+cmdID[int(value)+8]+self.checkcodeGen()
         self.ser.write(self.cmd.encode())
         self.bluetooth_Feedback(self.cmd)
-
+    def EBreak(self):
+        self.cmd='EB00'+self.checkcodeGen()
+        self.ser.write(self.cmd.encode())
+        self.bluetooth_Feedback(self.cmd)
+        self.slide1.config(showvalue=0)
 
     def headlight_Control(self,value):
         cmdID=['11','00','01']
@@ -208,7 +215,6 @@ if __name__ == '__main__':
     LKJ=tk.PhotoImage(file='resources/LKJ.png')
     label0=tk.Label(form1,image=LKJ)
     label0.place(x=320,y=0,anchor='nw')
-
 
     appform=mainApplication(form1)
     appform.setWindow()

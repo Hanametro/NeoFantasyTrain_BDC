@@ -1,52 +1,25 @@
-//Attention!This Program SHOULD BE USED Under AT mode!
+#include <SoftwareSerial.h>
+
+//初始一个软件串口 serial2(Rxd, Txd)
+
+SoftwareSerial  mySerial(7,8);
+
 void setup() {
-  // put your setup code here, to run once:
-  Serial.begin(38400);
- 
+
+  Serial.begin(9600);
+
+  mySerial.begin(38400);//设置AT模式的串口波特率是38400
+
 }
-
-void sendcmd()
-{
-    Serial.println("AT");
-  while(Serial.available())
-  {
-    char ch;
-    ch = Serial.read();
-    Serial.print(ch);
-  } // Get response: OK
-  delay(1000); // wait for printing 
-
-  
-  Serial.println("AT+NAME=BR218-01");
-  while(Serial.available())
-  {
-    char ch;
-    ch = Serial.read();
-    Serial.print(ch);
-  }
-  delay(1000);
-
-  Serial.println("AT+ADDR?");
-  while(Serial.available())
-  {
-    char ch;
-    ch = Serial.read();
-    Serial.print(ch);
-  }
-  delay(1000);
-
-  Serial.println("AT+PSWD=0000");
-  while(Serial.available())
-  {
-    char ch;
-    ch = Serial.read();
-    Serial.print(ch);
-  }
-  delay(1000);
-  
-}
-
 
 void loop() {
-    sendcmd();
+
+  if(Serial.available())
+
+    mySerial.write(Serial.read());
+
+  if(mySerial.available())
+
+    Serial.write(mySerial.read());
+
 }

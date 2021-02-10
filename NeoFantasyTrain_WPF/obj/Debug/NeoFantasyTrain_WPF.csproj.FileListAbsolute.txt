@@ -13,3 +13,5 @@ E:\【DEV】模型控制\NeoFantasyTrain_WPF\obj\Debug\NeoFantasyTrain_WPF.cspro
 E:\【DEV】模型控制\NeoFantasyTrain_WPF\obj\Debug\NeoFantasyTrain_WPF.csproj.CoreCompileInputs.cache
 E:\【DEV】模型控制\NeoFantasyTrain_WPF\obj\Debug\NeoFantasyTrain_WPF.exe
 E:\【DEV】模型控制\NeoFantasyTrain_WPF\obj\Debug\NeoFantasyTrain_WPF.pdb
+E:\【DEV】模型控制\NeoFantasyTrain_WPF\obj\Debug\Graph.g.cs
+E:\【DEV】模型控制\NeoFantasyTrain_WPF\obj\Debug\Graph.baml

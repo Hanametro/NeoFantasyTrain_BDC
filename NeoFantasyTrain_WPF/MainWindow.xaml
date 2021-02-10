@@ -1,4 +1,4 @@
-﻿<Window x:Class="NeoFantasyTrain_WPF.MainWindow"
+﻿<Window x:Name="mainApp" x:Class="NeoFantasyTrain_WPF.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -28,40 +28,65 @@
             <Grid.Background>
                 <ImageBrush ImageSource="Controller.png"/>
             </Grid.Background>
-            <Slider x:Name="Slider1" HorizontalAlignment="Center" Margin="64,63,136,0" VerticalAlignment="Top" Height="527" Width="50" Orientation="Vertical" SmallChange="1" Maximum="8" Minimum="-8" TickPlacement="Both" RenderTransformOrigin="0.695,0.507" Ticks="-8 -7 -6 -5 -4 -3 -2 -1 0 1 2 3 4 5 6 7 8 " IsSnapToTickEnabled="True" ValueChanged="Slider1_ValueChanged" />
-            <Slider x:Name="Slider2" HorizontalAlignment="Center" Margin="167,221,33,0" VerticalAlignment="Top" Height="208" Width="50" Orientation="Vertical" SmallChange="1" Maximum="1" Minimum="-1" TickPlacement="Both" RenderTransformOrigin="0.695,0.507" Ticks="-1 0 1 " IsSnapToTickEnabled="True" ValueChanged="Slider2_ValueChanged" />
-            <Slider x:Name="ModeSlider" HorizontalAlignment="Left" Margin="45,636,0,0" VerticalAlignment="Top" Height="38" Width="172" Maximum="1" Ticks="-1 0 1 " IsSnapToTickEnabled="True" ValueChanged="ModeSlider_ValueChanged"/>
+            <Slider x:Name="Slider1" HorizontalAlignment="Center" Margin="61,138,139,0" VerticalAlignment="Top" Height="471" Width="50" Orientation="Vertical" SmallChange="1" Maximum="8" Minimum="-8" TickPlacement="Both" RenderTransformOrigin="0.695,0.507" Ticks="-8 -7 -6 -5 -4 -3 -2 -1 0 1 2 3 4 5 6 7 8 " IsSnapToTickEnabled="True" ValueChanged="Slider1_ValueChanged" />
+            <Slider x:Name="Slider2" HorizontalAlignment="Center" Margin="167,282,33,0" VerticalAlignment="Top" Height="182" Width="50" Orientation="Vertical" SmallChange="1" Maximum="1" Minimum="-1" TickPlacement="Both" RenderTransformOrigin="0.695,0.507" Ticks="-1 0 1 " IsSnapToTickEnabled="True" ValueChanged="Slider2_ValueChanged" />
+            <Slider x:Name="ModeSlider" HorizontalAlignment="Left" Margin="45,632,0,0" VerticalAlignment="Top" Height="38" Width="172" Maximum="1" Ticks="-1 0 1 " IsSnapToTickEnabled="True" ValueChanged="ModeSlider_ValueChanged"/>
+            <ComboBox x:Name="modelList" HorizontalAlignment="Left" Margin="120,50,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="loadList_SelectionChanged"/>
+            <Label Content="负载类型" HorizontalAlignment="Left" Margin="20,77,0,0" VerticalAlignment="Top" Height="30" Foreground="White" RenderTransformOrigin="0.13,0.258"/>
+            <Label Content="机车型号" HorizontalAlignment="Left" Margin="20,50,0,0" VerticalAlignment="Top" Height="30" Foreground="White"/>
+            <ComboBox x:Name="loadList" HorizontalAlignment="Left" Margin="120,79,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="loadList_SelectionChanged"/>
         </Grid>
-        <Grid HorizontalAlignment="Left" Height="480" Margin="320,10,0,0" VerticalAlignment="Top" Width="640">
+        <Grid x:Name="Screen_run" HorizontalAlignment="Left" Height="480" Margin="320,10,0,0" VerticalAlignment="Top" Width="640">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="13*"/>
+                <RowDefinition Height="11*"/>
+            </Grid.RowDefinitions>
             <Grid.Background>
                 <ImageBrush ImageSource="Monitor.png"/>
             </Grid.Background>
             <Label x:Name="timeview" Content="----" HorizontalAlignment="Left" Margin="414,8,0,0" VerticalAlignment="Top" Foreground="White" FontSize="20"/>
             <Label x:Name="LocoNumber" Content="---" HorizontalAlignment="Left" Margin="299,8,0,0" VerticalAlignment="Top" Foreground="White" FontSize="20"/>
-            <ProgressBar x:Name="TBar" HorizontalAlignment="Left" Height="280" Margin="248,88,0,0" VerticalAlignment="Top" Width="30" Maximum="8" Orientation="Vertical" Background="Black" BorderBrush="White"/>
-            <ProgressBar x:Name="BBar" HorizontalAlignment="Left" Height="280" Margin="295,87,0,0" VerticalAlignment="Top" Width="35" Maximum="8" Orientation="Vertical" Background="Black" BorderBrush="White" Foreground="Red"/>
-            <Label x:Name="TValue" Content="T0" HorizontalAlignment="Left" Margin="246,53,0,0" VerticalAlignment="Top" Foreground="White" FontSize="20"/>
-            <Label x:Name="BValue" Content="B0" HorizontalAlignment="Left" Margin="297,53,0,0" VerticalAlignment="Top" Foreground="White" FontSize="20"/>
-            <ProgressBar x:Name="iaBar" HorizontalAlignment="Left" Height="280" Margin="122,87,0,0" VerticalAlignment="Top" Width="30" Maximum="2.8" Orientation="Vertical" Background="Black" BorderBrush="White"/>
-            <ProgressBar x:Name="ibBar" HorizontalAlignment="Left" Height="280" Margin="169,87,0,0" VerticalAlignment="Top" Width="30" Maximum="2.8" Orientation="Vertical" Background="Black" BorderBrush="White"/>
-            <ProgressBar x:Name="VoltageBar" HorizontalAlignment="Left" Height="280" Margin="44,88,0,0" VerticalAlignment="Top" Width="30" Maximum="28" Orientation="Vertical" Background="Black" BorderBrush="White" ValueChanged="VoltageBar_ValueChanged"/>
-            <Label x:Name="UValue" Content="0.0" HorizontalAlignment="Left" Margin="40,53,0,0" VerticalAlignment="Top" Foreground="White" FontSize="20"/>
-            <Label Content="Ⅰ" HorizontalAlignment="Left" Margin="122,53,0,0" VerticalAlignment="Top" Foreground="White" FontSize="20"/>
-            <Label Content="Ⅱ" HorizontalAlignment="Left" Margin="168,52,0,0" VerticalAlignment="Top" Foreground="White" FontSize="20"/>
-            <ListBox x:Name="ListBox1" HorizontalAlignment="Left" Height="127" Margin="366,282,0,0" VerticalAlignment="Top" Width="264" Foreground="White" Background="Black"/>
+            <ProgressBar x:Name="TBar" HorizontalAlignment="Left" Height="280" Margin="253,88,0,0" VerticalAlignment="Top" Width="30" Maximum="8" Orientation="Vertical" Background="Black" BorderBrush="White" Grid.RowSpan="2"/>
+            <ProgressBar x:Name="BBar" HorizontalAlignment="Left" Height="280" Margin="305,88,0,0" VerticalAlignment="Top" Width="30" Maximum="8" Orientation="Vertical" Background="Black" BorderBrush="White" Foreground="Red" Grid.RowSpan="2"/>
+            <Label x:Name="TValue" Content="T0" HorizontalAlignment="Left" Margin="250,53,0,0" VerticalAlignment="Top" Foreground="White" FontSize="20"/>
+            <Label x:Name="BValue" Content="B0" HorizontalAlignment="Left" Margin="300,53,0,0" VerticalAlignment="Top" Foreground="White" FontSize="20"/>
+            <ProgressBar x:Name="iaBar" HorizontalAlignment="Left" Height="280" Margin="176,88,0,0" VerticalAlignment="Top" Width="30" Maximum="2" Orientation="Vertical" Background="Black" BorderBrush="White" Grid.RowSpan="2"/>
+            <ProgressBar x:Name="VoltageBar" HorizontalAlignment="Left" Height="280" Margin="118,88,0,0" VerticalAlignment="Top" Width="30" Maximum="28" Orientation="Vertical" Background="Black" BorderBrush="White" ValueChanged="VoltageBar_ValueChanged" Grid.RowSpan="2"/>
+            <Label x:Name="UValue" Content="0.00" HorizontalAlignment="Left" Margin="108,53,0,0" VerticalAlignment="Top" Foreground="White" FontSize="20"/>
+            <Label x:Name="IValue" Content="0.00" HorizontalAlignment="Left" Margin="166,53,0,0" VerticalAlignment="Top" Foreground="White" FontSize="20"/>
+            <ListBox x:Name="ListBox1" HorizontalAlignment="Left" Height="127" Margin="366,22.4,0,0" VerticalAlignment="Top" Width="264" Foreground="White" Background="Black" Grid.Row="1" SelectionChanged="ListBox1_SelectionChanged"/>
             <Label x:Name="ModeLabel" Content="速度模式" HorizontalAlignment="Left" Margin="358,48,0,0" VerticalAlignment="Top" Foreground="White" Background="#FFC900DA" FontSize="24" Height="64" Width="128" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-            <Image x:Name="bluetooth_status" HorizontalAlignment="Left" Height="50" Margin="10,426,0,0" VerticalAlignment="Top" Width="50" Source="bluetooth.png" Visibility="Hidden"/>
-            <Label Content="蓝牙交互信息" HorizontalAlignment="Left" Margin="358,241,0,0" VerticalAlignment="Top" Background="#FFC900DA" FontSize="14" Width="282" Height="26" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Image x:Name="bluetooth_status" HorizontalAlignment="Left" Height="50" Margin="10,166.4,0,0" VerticalAlignment="Top" Width="50" Source="bluetooth.png" Visibility="Hidden" Grid.Row="1"/>
+            <Label Content="蓝牙交互信息" HorizontalAlignment="Left" Margin="358,241,0,0" VerticalAlignment="Top" Background="#FFC900DA" FontSize="14" Width="282" Height="26" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.RowSpan="2"/>
             <Label x:Name="ModeTargetName" Content="设定速度" HorizontalAlignment="Left" Margin="491,48,0,0" VerticalAlignment="Top" Foreground="White" Height="26"/>
             <Label x:Name="Modeunit" Content="km/h" HorizontalAlignment="Left" Margin="590,86,0,0" VerticalAlignment="Top" Foreground="White" Height="26"/>
             <Label x:Name="ModeTargetValue" Content="000" HorizontalAlignment="Left" Margin="522,74,0,0" VerticalAlignment="Top" Foreground="White" Height="38" FontWeight="Bold" FontSize="24"/>
+            <Label Content="[V]" HorizontalAlignment="Left" Margin="121,132,0,0" VerticalAlignment="Top" Foreground="White" Grid.Row="1" RenderTransformOrigin="-0.562,0.32"/>
+            <Label Content="[A]" HorizontalAlignment="Left" Margin="179,132,0,0" VerticalAlignment="Top" Foreground="White" Grid.Row="1" RenderTransformOrigin="0.706,0.508"/>
+            <Label Content="网压  |  电流" HorizontalAlignment="Left" Height="34" Margin="108,108,0,0" Grid.Row="1" VerticalAlignment="Top" Width="116" Foreground="White" FontSize="18"/>
+            <Label Content="牵引  |  制动" HorizontalAlignment="Left" Height="34" Margin="240,108,0,0" Grid.Row="1" VerticalAlignment="Top" Width="109" Foreground="White" FontSize="18"/>
+            <Label Content="[%]" HorizontalAlignment="Left" Margin="250,132,0,0" VerticalAlignment="Top" Foreground="White" Grid.Row="1" RenderTransformOrigin="-0.562,0.32"/>
+            <Label Content="[%]" HorizontalAlignment="Left" Margin="306,132,0,0" VerticalAlignment="Top" Foreground="White" Grid.Row="1" RenderTransformOrigin="-0.562,0.32"/>
+            <ProgressBar x:Name="ForceBar" HorizontalAlignment="Left" Height="280" Margin="33,88,0,0" VerticalAlignment="Top" Width="30" Orientation="Vertical" Background="Black" BorderBrush="White" Grid.RowSpan="2" Maximum="400"/>
+            <Label Content="牵引力" HorizontalAlignment="Left" Height="34" Margin="16,109,0,0" Grid.Row="1" VerticalAlignment="Top" Width="73" Foreground="White" FontSize="18"/>
+            <Label Content="[kN]" HorizontalAlignment="Left" Margin="31,132,0,0" VerticalAlignment="Top" Foreground="White" Grid.Row="1" RenderTransformOrigin="-0.562,0.32"/>
+            <Label x:Name="ForceValue" Content="0.00" HorizontalAlignment="Left" Margin="23,53,0,0" VerticalAlignment="Top" Foreground="White" FontSize="20"/>
+            <Label Content="牵引力为仿真值，电压电流为真实值" HorizontalAlignment="Left" Margin="389,211,0,0" VerticalAlignment="Top" Foreground="White"/>
+            <Label x:Name="check_Copy2" Content="功率[kW]" HorizontalAlignment="Left" Margin="401,187,0,0" VerticalAlignment="Top" Foreground="White"/>
+            <Label x:Name="PowerValue" Content="0" HorizontalAlignment="Left" Margin="522,187,0,0" VerticalAlignment="Top" Foreground="White"/>
+            <Label x:Name="check_Copy1" Content="阻力[kN]" HorizontalAlignment="Left" Margin="401,161,0,0" VerticalAlignment="Top" Foreground="White"/>
+            <Label x:Name="RforceValue" Content="0" HorizontalAlignment="Left" Margin="522,161,0,0" VerticalAlignment="Top" Foreground="White"/>
+            <Label x:Name="check_Copy" Content="加速度[m/s²]" HorizontalAlignment="Left" Margin="389,135,0,0" VerticalAlignment="Top" Foreground="White"/>
+            <Label x:Name="checkacc" Content="0" HorizontalAlignment="Left" Margin="522,135,0,0" VerticalAlignment="Top" Foreground="White"/>
+            <Label x:Name="check_Copy3" Content="机车参数监测（模拟）" HorizontalAlignment="Left" Margin="358,114,0,0" VerticalAlignment="Top" Foreground="White" Background="#FFC900DA" Width="282" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+            <Label x:Name="bluetooth_notice" Content="⚠操作提示：控制模型请先连接蓝牙" HorizontalAlignment="Left" Margin="121,170,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24" Foreground="White"/>
         </Grid>
         <Grid HorizontalAlignment="Left" Height="150" Margin="320,530,0,0" VerticalAlignment="Top" Width="640">
             <Slider x:Name="Headlight_Slider" HorizontalAlignment="Center" Margin="210,25,386,0" VerticalAlignment="Top" Height="100" Width="35" Orientation="Vertical" SmallChange="1" Maximum="1" Minimum="-1" TickPlacement="Both" RenderTransformOrigin="0.695,0.507" Ticks="-1 0 1 " IsSnapToTickEnabled="True" ValueChanged="Headlight_Slider_ValueChanged" />
             <Slider x:Name="Rearlight_Slider" HorizontalAlignment="Center" Margin="300,25,302,0" VerticalAlignment="Top" Height="100" Width="35" Orientation="Vertical" SmallChange="1" Maximum="1" Minimum="-1" TickPlacement="Both" RenderTransformOrigin="0.695,0.507" Ticks="-1 0 1 " IsSnapToTickEnabled="True" ValueChanged="Rearlight_Slider_ValueChanged" />
             <Slider x:Name="Cablight_Slider" HorizontalAlignment="Center" Margin="390,25,218,0" VerticalAlignment="Top" Height="100" Width="35" Orientation="Vertical" SmallChange="1" Maximum="1" TickPlacement="Both" RenderTransformOrigin="0.695,0.507" Ticks="0 1 " IsSnapToTickEnabled="True" ValueChanged="Cablight_Slider_ValueChanged" />
             <Button x:Name="EB_Button" Content="紧急制动" HorizontalAlignment="Left" Margin="542,36,0,0" VerticalAlignment="Top" Width="80" Height="80" Background="Red" Foreground="White" Click="EB_Button_Click"/>
-            <Button x:Name="EB_Button_Copy" Content="电气复位" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top" Width="80" Height="80" Background="Red" Foreground="White" Click="EB_Button_Copy_Click"/>
+            <Button x:Name="EB_Button_Copy" Content="总开关" HorizontalAlignment="Left" Margin="444,36,0,0" VerticalAlignment="Top" Width="80" Height="80" Background="Red" Foreground="White" Click="EB_Button_Copy_Click"/>
             <Label Content="前照灯" HorizontalAlignment="Left" Margin="207,0,0,0" VerticalAlignment="Top"/>
             <Label Content="后端标志灯" HorizontalAlignment="Left" Margin="282,0,0,0" VerticalAlignment="Top"/>
             <Label Content="设备舱灯" HorizontalAlignment="Left" Margin="375,0,0,0" VerticalAlignment="Top"/>
@@ -71,9 +96,8 @@
                 <ImageBrush ImageSource="speedmeter.png"/>
             </Grid.Background>
             <TextBox x:Name="speedValue" HorizontalAlignment="Left" Height="50" Margin="75,225,0,0" TextWrapping="Wrap" Text="000" VerticalAlignment="Top" Width="100" Foreground="White" Background="#FF6C6060" FontSize="24" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-            <Label x:Name="feedback" Content="Label" HorizontalAlignment="Left" Margin="158,530,0,-76" VerticalAlignment="Top"/>
         </Grid>
-        <Button Content="Button" HorizontalAlignment="Left" Height="100" Margin="125,754,0,-163.6" VerticalAlignment="Top" Width="75"/>
+        <Label x:Name="testView" Content="Label" HorizontalAlignment="Left" Margin="273,500,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
